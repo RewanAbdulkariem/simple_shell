@@ -11,8 +11,7 @@ int main(void)
 
 	while (1)
 	{
-		printf("\e[1;31m SHELL# ");
-		printf("\e[0m");
+		printf("SHELL# ");
 
 		if (getline(&cmd, &n, stdin) == -1 || strcmp(cmd, "exit\n") == 0)
 		{
