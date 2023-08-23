@@ -13,15 +13,21 @@ int main(void)
 	{
 		printf("SHELL# ");
 
-		if (getline(&cmd, &n, stdin) == -1 || strcmp(cmd, "exit\n") == 0)
+		if (getline(&cmd, &n, stdin) == -1)
+		{
+			free(cmd);
+			printf("\n");
+			exit(1);
+		}
+		if (strcmp(cmd, "exit\n") == 0)
 		{
 			free(cmd);
 			exit(1);
 		}
-
 		argv = parse_line(cmd);
 		excute_command(argv);
 	}
+	free(cmd);
 	free(argv);
 	return (0);
 }
