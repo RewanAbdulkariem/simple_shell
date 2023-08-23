@@ -1,4 +1,5 @@
 #include "main.h"
+
 /**
  * parse_line - parse the string into arguments
  * @line: pointer to the string
@@ -9,19 +10,31 @@ char **parse_line(char *line)
 	char **argv = NULL;
 	char *token = NULL;
 	int argc = 0;
-
+	
 	token = strtok(line, " \n");
+
 	while (token)
 	{
-		argv = realloc(argv, (argc + 1) * sizeof(char *));
-		if (!argv)
+		char **new_argv = malloc((argc + 1) * sizeof(char *));
+		if (!new_argv)
 		{
 			perror("Memory Allocation Error");
 			exit(1);
 		}
-		argv[argc++] = token;
+
+		for (int i = 0; i < argc; i++)
+		{
+			new_argv[i] = argv[i];
+		}
+
+		new_argv[argc++] = token;
+
+		free(argv);
+		argv = new_argv;
 		token = strtok(NULL, " \"\n");
 	}
+
 	argv[argc] = NULL;
 	return (argv);
 }
+
