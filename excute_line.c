@@ -6,6 +6,7 @@
 void excute_command(char **argv)
 {
 	pid_t child;
+	int status;
 
 	child = fork();
 
@@ -16,11 +17,11 @@ void excute_command(char **argv)
 	}
 	if (child == 0)
 	{
-		execvp(argv[0], argv);
+		execve(argv[0], argv, NULL);
 		perror("Execve failed");
 	}
 	else
 	{
-		wait(NULL);
+		wait(&status);
 	}
 }
