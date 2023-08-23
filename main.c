@@ -6,8 +6,8 @@
 int main(void)
 {
 	char **argv;
-	char *cmd = NULL;			/*command entered by the user*/
-	size_t n = 0;			/*size of input buffer*/
+	char *cmd = NULL;
+	size_t n = 0;
 
 	while (1)
 	{
