@@ -9,7 +9,7 @@
 #include <stddef.h>
 #include <limits.h>
 
-char** parse_line(char* line);
+char **parse_line(char *line);
 void excute_command(char **argv);
 
 #endif
