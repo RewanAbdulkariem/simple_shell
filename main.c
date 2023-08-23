@@ -19,8 +19,8 @@ int main(void)
 			exit(1);
 		}
 
-		argv = parse_sting(cmd);
-		excute_line(argv);
+		argv = parse_line(cmd);
+		excute_command(argv);
 	}
 	free(argv);
 	return (0);
