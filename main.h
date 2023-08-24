@@ -12,5 +12,5 @@
 
 char **parse_line(char *line);
 void excute_command(char **argv);
-
+void shellBultin(char **argv);
 #endif

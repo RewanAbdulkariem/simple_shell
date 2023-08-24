@@ -8,6 +8,9 @@ int main(void)
 	char **argv;
 	char *cmd = NULL;
 	size_t n = 0;
+	char InternalCmd = 0;			/*flag to indicate the command is built-in or not*/
+	char* built_in[4] = {"cd", "export", "echo","exit"};
+	int i;
 
 	while (1)
 	{
@@ -17,15 +20,23 @@ int main(void)
 		{
 			free(cmd);
 			printf("\n");
-			exit(1);
-		}
-		if (strcmp(cmd, "exit\n") == 0)
-		{
-			free(cmd);
-			exit(1);
+			return(-1);
 		}
 		argv = parse_line(cmd);
-		excute_command(argv);
+		for (i = 0; i < 4; i++)
+		{
+			if (!strcmp(argv[0],built_in[i]))   
+           		 {
+                		InternalCmd = 1;            
+                		break;                 
+            		}
+            		else
+                		InternalCmd = 0;
+		}
+		if (InternalCmd == 1)
+			shellBultin(argv);
+		else
+			excute_command(argv);
 	}
 	free(cmd);
 	free(argv);

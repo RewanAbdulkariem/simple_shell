@@ -25,7 +25,6 @@ char **parse_line(char *line)
 		argv[argc++] = token;
 		token = strtok(NULL, " \"\n");
 	}
-
 	argv[argc] = NULL;
 	return (argv);
 }
