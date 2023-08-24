@@ -10,7 +10,8 @@ char **parse_line(char *line)
 	char **argv = NULL;
 	char *token = NULL;
 	int argc = 0;
-	
+	int i;
+
 	token = strtok(line, " \n");
 
 	while (token)
@@ -22,7 +23,7 @@ char **parse_line(char *line)
 			exit(1);
 		}
 
-		for (int i = 0; i < argc; i++)
+		for (i = 0; i < argc; i++)
 		{
 			new_argv[i] = argv[i];
 		}
