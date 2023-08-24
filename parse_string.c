@@ -10,19 +10,21 @@ char **parse_line(char *line)
 	char **argv = NULL;
 	char *token = NULL;
 	int argc = 0;
-	
+
 	token = strtok(line, " \n");
 
 	while (token)
 	{
 		char **new_argv = malloc((argc + 1) * sizeof(char *));
+		int i;
+
 		if (!new_argv)
 		{
 			perror("Memory Allocation Error");
 			exit(1);
 		}
 
-		for (int i = 0; i < argc; i++)
+		for (i = 0; i < argc; i++)
 		{
 			new_argv[i] = argv[i];
 		}
@@ -37,4 +39,3 @@ char **parse_line(char *line)
 	argv[argc] = NULL;
 	return (argv);
 }
-
