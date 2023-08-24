@@ -1,5 +1,5 @@
 #include "main.h"
-
+#define MAX_SIZE 1024
 /**
  * parse_line - parse the string into arguments
  * @line: pointer to the string
@@ -11,28 +11,18 @@ char **parse_line(char *line)
 	char *token = NULL;
 	int argc = 0;
 
+	argv = malloc((MAX_SIZE + 1) * sizeof(char *));
+	if (!argv)
+	{
+		perror("Memory Allocation Error");
+		exit(1);
+	}
+
 	token = strtok(line, " \n");
 
 	while (token)
 	{
-		char **new_argv = malloc((argc + 1) * sizeof(char *));
-		int i;
-
-		if (!new_argv)
-		{
-			perror("Memory Allocation Error");
-			exit(1);
-		}
-
-		for (i = 0; i < argc; i++)
-		{
-			new_argv[i] = argv[i];
-		}
-
-		new_argv[argc++] = token;
-
-		free(argv);
-		argv = new_argv;
+		argv[argc++] = token;
 		token = strtok(NULL, " \"\n");
 	}
 
