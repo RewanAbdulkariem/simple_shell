@@ -16,7 +16,6 @@ int main(void)
 		if (getline(&cmd, &n, stdin) == -1)
 		{
 			free(cmd);
-			printf("\n");
 			exit(1);
 		}
 		if (strcmp(cmd, "exit\n") == 0)
