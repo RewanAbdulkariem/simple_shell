@@ -5,8 +5,6 @@
  */
 int main(void)
 {
-	char **argv;
-	char *cmd = NULL;
 	size_t n = 0;
 	char InternalCmd = 0;			/*flag to indicate the command is built-in or not*/
 	char* built_in[4] = {"cd", "export", "echo","exit"};
@@ -14,6 +12,9 @@ int main(void)
 
 	while (1)
 	{
+		char *cmd = NULL;
+		char **argv;
+		
 		printf("SHELL# ");
 
 		if (getline(&cmd, &n, stdin) == -1)
@@ -37,8 +38,8 @@ int main(void)
 			shellBultin(argv);
 		else
 			excute_command(argv);
+		free(cmd);
+		free(argv);
 	}
-	free(cmd);
-	free(argv);
 	return (0);
 }
