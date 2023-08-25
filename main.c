@@ -1,45 +1,45 @@
 #include "main.h"
 /**
- * main - the entry
- * Return: 0 on success
+ * main - Entry point of the shell program.
+ * @argc: The number of command-line arguments.
+ * @argv: An array of strings representing the command-line arguments.
+ * Return: 0 on successful completion, -1 on error or when the shell exits.
  */
-int main(void)
+int main(int argc, char **argv)
 {
+	char *prompt = "(MyShell)$ ", *command;
 	size_t n = 0;
-	char InternalCmd = 0;			/*flag to indicate the command is built-in or not*/
-	char* built_in[4] = {"cd", "export", "echo","exit"};
+	ssize_t num_read;
 	int i;
+	(void)argc;
 
 	while (1)
 	{
 		char *cmd = NULL;
-		char **argv;
-		
-		printf("SHELL# ");
+		char **split_string = NULL;
 
-		if (getline(&cmd, &n, stdin) == -1)
+		printf("%s", prompt);
+		num_read = getline(&cmd, &n, stdin);
+
+		if (num_read == -1 || feof(stdin))
 		{
+			printf("Exit shell....\n");
 			free(cmd);
-			printf("\n");
-			return(-1);
+			break;
 		}
-		argv = parse_line(cmd);
-		for (i = 0; i < 4; i++)
+		split_string = parse_string(cmd, num_read);
+		command = command_path(split_string[0]);
+		if (command == NULL)
 		{
-			if (!strcmp(argv[0],built_in[i]))   
-           		 {
-                		InternalCmd = 1;            
-                		break;                 
-            		}
-            		else
-                		InternalCmd = 0;
+			printf("%s: No such file or directory\n", argv[0]);
+			continue;
 		}
-		if (InternalCmd == 1)
-			shellBultin(argv);
-		else
-			excute_command(argv);
+		excute_command(command, split_string);
+		free(command);
 		free(cmd);
-		free(argv);
+		for (i = 0; split_string[i] != NULL; i++)
+			free(split_string[i]);
+		free(split_string);
 	}
 	return (0);
 }

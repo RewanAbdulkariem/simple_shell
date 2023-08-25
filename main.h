@@ -5,12 +5,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-#include <signal.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 #include <sys/wait.h>
-#include <stddef.h>
-#include <limits.h>
-
-char **parse_line(char *line);
-void excute_command(char **argv);
-void shellBultin(char **argv);
+char **parse_string(char *cmd, int num_chars);
+void excute_command(char *command, char **argv);
+char *command_path(char *command);
 #endif
