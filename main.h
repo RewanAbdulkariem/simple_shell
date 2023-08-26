@@ -13,9 +13,12 @@
 extern char **environ;
 
 /*---PROTOTYPES---*/
+void print_prompt(void);
+char *read_command(void);
+
 char **parse_string(char *cmd, int num_chars);
 void excute_command(char *command, char **argv);
 char *command_path(char *command);
 void print_environment(void);
-
+void Shell_Builtin(char **command);
 #endif
