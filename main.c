@@ -18,10 +18,15 @@ int main(int argc, char **argv)
 		Internalcmd = 0;
 		print_prompt();
 		cmd = read_command();
-		if (!cmd)
+		if (cmd == NULL)
 			break;
 		split_string = parse_string(cmd, strlen(cmd));
 		free(cmd);
+		if (split_string[0] == NULL)
+		{
+			free(split_string);
+			break;
+		}
 		for (i = 0; i < 3; i++)
 		{
 			if (strcmp(split_string[0], Bultin[i]) == 0)
