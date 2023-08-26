@@ -18,7 +18,7 @@ void print_environment(void)
  *
  * Return: Always 0.
  */
-int Shell_Builtin(char **command)
+void Shell_Builtin(char **command)
 {
 	char *cwd;
 	int i;
@@ -40,5 +40,4 @@ int Shell_Builtin(char **command)
 			cwd = command[1];
 		chdir(cwd);
 	}
-	return (0);
 }
