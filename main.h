@@ -11,9 +11,11 @@
 #include <sys/wait.h>
 
 extern char **environ;
+
 /*---PROTOTYPES---*/
 char **parse_string(char *cmd, int num_chars);
 void excute_command(char *command, char **argv);
 char *command_path(char *command);
 void print_environment(void);
+
 #endif
