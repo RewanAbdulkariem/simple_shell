@@ -18,7 +18,7 @@ void excute_command(char *command, char **argv)
 	}
 	if (child == 0)
 	{
-		execve(command, argv, NULL);
+		execve(command, argv, environ);
 		perror("Execve failed");
 	}
 	else
