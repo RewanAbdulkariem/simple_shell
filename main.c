@@ -1,11 +1,13 @@
 #include "main.h"
 /**
  * main - Entry point of the shell program.
+ * @argc: The number of command-line arguments
+ * @argv: An array of command-line argument strings
  * Return: 0 on successful completion
  */
-int main(int argc,char **argv)
+int main(int argc, char **argv)
 {
-	char *command ,*prompt = "$ ";
+	char *command, *prompt = "$ ";
 	size_t n = 0;
 	ssize_t num_read;
 	int i;
@@ -14,6 +16,7 @@ int main(int argc,char **argv)
 	while (1)
 	{
 		char *cmd = NULL, **split_string = NULL;
+
 		if (isatty(STDIN_FILENO) == 1)
 			printf("%s", prompt);
 
@@ -34,7 +37,7 @@ int main(int argc,char **argv)
 			printf("%s: No such file or directory\n", argv[0]);
 			continue;
 		}
-		
+
 		excute_command(command, split_string);
 		free(command);
 		free(cmd);
