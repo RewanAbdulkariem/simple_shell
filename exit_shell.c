@@ -6,21 +6,17 @@
  * @argc: the number of arguments.
  */
 
-void exit_shell(char **args, int argc)
+void exit_shell(char **command, int argc)
 {
-	int exit_value;
+	int exit_value = 0, i;
 
-	if (strcmp(args[0], "exit") == 0)
+	if (argc > 1)
 	{
-		if (argc > 1)
-		{
-			exit_value = atoi(args[1]);
-			exit(exit_value);
-		}
-		else
-		{
-			exit(0);
-		}
+		exit_value = atoi(command[1]);
 	}
+	for (i = 0; command[i] != NULL; i++)
+			free(command[i]);
+		free(command);
+	exit(exit_value);
 }
 

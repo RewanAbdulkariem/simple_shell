@@ -21,14 +21,14 @@ void print_environment(void)
 void Shell_Builtin(char **command)
 {
 	char *cwd;
-	int i;
+	int i, argc = 0;
+	
+	for (i = 0; command[i] != NULL; i++)
+			argc++;
 
 	if (strcmp(command[0], "exit") == 0)
 	{
-		for (i = 0; command[i] != NULL; i++)
-			free(command[i]);
-		free(command);
-		exit(0);
+		exit_shell(command, argc);
 	}
 	else if (strcmp(command[0], "env") == 0)
 		print_environment();
