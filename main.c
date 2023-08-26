@@ -7,29 +7,28 @@
  */
 int main(int argc, char **argv)
 {
-	char *command, *prompt = "$ ";
-	size_t n = 0;
-	ssize_t num_read;
-	int i, exit_shell = 0;
+	char *command, *Bultin[3] = {"exit", "env", "cd"};
+	int i, exit_shell = 0, Internalcmd = 0;
 	(void)argc;
 
 	while (!exit_shell)
 	{
 		char *cmd = NULL, **split_string = NULL;
 
-		if (isatty(STDIN_FILENO) == 1)
-			printf("%s", prompt);
-		num_read = getline(&cmd, &n, stdin);
-		if (num_read == -1 || feof(stdin))
-		{
-			free(cmd);
+		Internalcmd = 0;
+		print_prompt();
+		cmd = read_command();
+		if (!cmd)
 			break;
+		split_string = parse_string(cmd, strlen(cmd));
+		free(cmd);
+		for (i = 0; i < 3; i++)
+		{
+			if (strcmp(split_string[0], Bultin[i]) == 0)
+				Internalcmd = 1;
 		}
-		split_string = parse_string(cmd, num_read);
-		if (strcmp(split_string[0], "exit") == 0)
-			exit_shell = 1;
-		else if (strcmp(split_string[0], "env") == 0)
-			print_environment();
+		if (Internalcmd)
+			Shell_Builtin(split_string);
 		else
 		{
 			command = command_path(split_string[0]);
@@ -41,20 +40,35 @@ int main(int argc, char **argv)
 		}
 		for (i = 0; split_string[i] != NULL; i++)
 			free(split_string[i]);
-		free(split_string), free(cmd);
+		free(split_string);
 	}
 	return (0);
 }
 /**
- * print_environment - Print the current environment variables.
+ * read_command - Read a command from the user.
+ * Return: The user's entered command string.
  */
-void print_environment(void)
+char *read_command(void)
 {
-	char **env = environ;
+	char *cmd = NULL;
+	ssize_t num_read;
+	size_t n = 0;
 
-	while (*env != NULL)
+	num_read = getline(&cmd, &n, stdin);
+	if (num_read == -1 || feof(stdin))
 	{
-		printf("%s\n", *env);
-		env++;
+		free(cmd);
+		return (NULL);
 	}
+	return (cmd);
+}
+/**
+ * print_prompt - Print the shell prompt.
+ */
+void print_prompt(void)
+{
+	char *prompt = "$ ";
+
+	if (isatty(STDIN_FILENO) == 1)
+		printf("%s", prompt);
 }
