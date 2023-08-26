@@ -26,24 +26,24 @@ int main(int argc, char **argv)
 			free(cmd);
 			break;
 		}
-
 		split_string = parse_string(cmd, num_read);
 		if (strcmp(split_string[0], "exit") == 0)
+		{
+			for (i = 0; split_string[i] != NULL; i++)
+				free(split_string[i]);
+			free(split_string), free(cmd);
 			break;
-
+		}
 		command = command_path(split_string[0]);
 		if (command == NULL)
 		{
 			printf("%s: No such file or directory\n", argv[0]);
 			continue;
 		}
-
 		excute_command(command, split_string);
-		free(command);
-		free(cmd);
 		for (i = 0; split_string[i] != NULL; i++)
 			free(split_string[i]);
-		free(split_string);
+		free(split_string), free(cmd), free(command);
 	}
 	return (0);
 }
