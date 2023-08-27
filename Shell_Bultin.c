@@ -21,15 +21,9 @@ void print_environment(void)
 void Shell_Builtin(char **command)
 {
 	char *cwd;
-	int i, argc = 0;
-	
-	for (i = 0; command[i] != NULL; i++)
-			argc++;
 
 	if (strcmp(command[0], "exit") == 0)
-	{
-		exit_shell(command, argc);
-	}
+		exit_shell(command);
 	else if (strcmp(command[0], "env") == 0)
 		print_environment();
 	else if (strcmp(command[0], "cd") == 0)

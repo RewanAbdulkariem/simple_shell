@@ -22,5 +22,5 @@ char *command_path(char *command);
 void print_environment(void);
 void Shell_Builtin(char **command);
 char *get_line(void);
-void exit_shell(char **args, int argc);
+void exit_shell(char **args);
 #endif

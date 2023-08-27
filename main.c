@@ -8,10 +8,10 @@
 int main(int argc, char **argv)
 {
 	char *command, *Bultin[3] = {"exit", "env", "cd"};
-	int i, exit_shell = 0, Internalcmd = 0;
+	int i, exitshell = 0, Internalcmd = 0;
 	(void)argc;
 
-	while (!exit_shell)
+	while (!exitshell)
 	{
 		char *cmd = NULL, **split_string = NULL;
 
@@ -38,7 +38,7 @@ int main(int argc, char **argv)
 		{
 			command = command_path(split_string[0]);
 			if (command == NULL)
-				printf("%s: No such file or directory\n", argv[0]);
+				fprintf(stderr,"%s: No such file or directory\n", argv[0]);
 			else
 				excute_command(command, split_string);
 			free(command);
