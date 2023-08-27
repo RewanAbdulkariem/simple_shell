@@ -23,9 +23,12 @@ void exit_shell(char **command)
 			fprintf(stderr, "./hsh: 1: exit: Illegal number: %d\n", exit_value);
 			exit_value = 2;
 		}
+
 	}
+
 	for (i = 0; command[i] != NULL; i++)
 		free(command[i]);
+
 	free(command);
 	exit(exit_value);
 }
