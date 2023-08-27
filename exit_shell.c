@@ -13,7 +13,7 @@ void exit_shell(char **command, int argc)
 	if (command[1] != NULL)
 		exit_value = atoi(command[1]);
 
-	if (exit_value < 0)
+	if (exit_value == -1)
 	{
 		fprintf(stderr, "./hsh: 1: exit: Illegal number: %d\n", exit_value);
 		exit_value = 2;
